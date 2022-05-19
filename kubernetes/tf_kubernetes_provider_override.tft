@@ -1,0 +1,193 @@
+// IBM provider
+provider "ibm" {
+  {{#provider_ibm_region_var}}
+  region = var.{{{provider_ibm_region_var}}}
+  {{/provider_ibm_region_var}}
+  {{#provider_ibm_apikey_var}}
+  ibmcloud_api_key = var.{{{provider_ibm_apikey_var}}}
+  {{/provider_ibm_apikey_var}}
+  {{#provider_ibm_iaas_classic_username_var}}
+  iaas_classic_username = var.{{{provider_ibm_iaas_classic_username_var}}}
+  {{/provider_ibm_iaas_classic_username_var}}
+  {{#provider_ibm_iaas_classic_api_key_var}}
+  iaas_classic_api_key = var.{{{provider_ibm_iaas_classic_api_key_var}}}
+  {{/provider_ibm_iaas_classic_api_key_var}}
+  {{#provider_ibm_zone_var}}
+  zone = var.{{{provider_ibm_zone_var}}}
+  {{/provider_ibm_zone_var}}
+  {{#provider_ibm_visibility_var}}
+  visibility = var.{{{provider_ibm_visibility_var}}}
+  {{/provider_ibm_visibility_var}}
+}
+
+data "ibm_container_cluster_config" "config" {
+  {{#cluster_config_cluster_name_var}}
+  cluster_name_id = var.{{{cluster_config_cluster_name_var}}}
+  {{/cluster_config_cluster_name_var}}
+  {{#cluster_config_config_dir_var}}
+  config_dir = var.{{{cluster_config_config_dir_var}}}
+  {{/cluster_config_config_dir_var}}
+  {{#cluster_config_admin_var}}
+  admin = var.{{{cluster_config_admin_var}}}
+  {{/cluster_config_admin_var}}
+  {{#cluster_config_network_var}}
+  network = var.{{{cluster_config_network_var}}}
+  {{/cluster_config_network_var}}
+  {{#cluster_config_download_var}}
+  download = var.{{{cluster_config_download_var}}}
+  {{/cluster_config_download_var}}
+  {{#cluster_config_resource_group_id_var}}
+  download = var.{{{cluster_config_resource_group_id_var}}}
+  {{/cluster_config_resource_group_id_var}}
+}
+// Variables for IBM provider
+
+{{#provider_ibm_region_var}}
+variable "{{{provider_ibm_region_var}}}" {
+  description = "Region of the IBM Cloud account."
+  type = string
+}
+{{/provider_ibm_region_var}}
+
+{{#provider_ibm_apikey_var}}
+variable "{{{provider_ibm_apikey_var}}}" {
+  description = "API Key of the IBM Cloud account."
+  type = string
+}
+{{/provider_ibm_apikey_var}}
+
+{{#provider_ibm_iaas_classic_username_var}}
+variable "{{{provider_ibm_iaas_classic_username_var}}}" {
+  description = "The IBM Cloud Classic Infrastructure (SoftLayer) user name."
+  type = string
+}
+{{/provider_ibm_iaas_classic_username_var}}
+
+{{#provider_ibm_iaas_classic_api_key_var}}
+variable "{{{provider_ibm_iaas_classic_api_key_var}}}" {
+  description = "The IBM Cloud Classic Infrastructure API key."
+  type = string
+}
+{{/provider_ibm_iaas_classic_api_key_var}}
+
+{{#provider_ibm_zone_var}}
+variable "{{{provider_ibm_zone_var}}}" {
+  description = "The IBM Cloud zone for a region."
+  type = string
+}
+{{/provider_ibm_zone_var}}
+
+{{#provider_ibm_visibility_var}}
+variable "{{{provider_ibm_visibility_var}}}" {
+  description = "The visibility to IBM Cloud endpoint."
+  type = string
+}
+{{/provider_ibm_visibility_var}}
+
+{{#cluster_config_cluster_name_var}}
+variable "{{{cluster_config_cluster_name_var}}}" {
+  description = "Region of the IBM Cloud account."
+  type = string
+}
+{{/cluster_config_cluster_name_var}}
+
+{{#cluster_config_config_dir_var}}
+variable "{{{cluster_config_config_dir_var}}}" {
+  description = "Region of the IBM Cloud account."
+  type = string
+}
+{{/cluster_config_config_dir_var}}
+
+{{#cluster_config_admin_var}}
+variable "{{{cluster_config_admin_var}}}" {
+  description = "Region of the IBM Cloud account."
+  type = string
+}
+{{/cluster_config_admin_var}}
+
+{{#cluster_config_network_var}}
+variable "{{{cluster_config_network_var}}}" {
+  description = "Region of the IBM Cloud account."
+  type = string
+}
+{{/cluster_config_network_var}}
+
+{{#cluster_config_download_var}}
+variable "{{{cluster_config_download_var}}}" {
+  description = "Region of the IBM Cloud account."
+  type = string
+}
+{{/cluster_config_download_var}}
+
+{{#cluster_config_resource_group_id_var}}
+variable "{{{cluster_config_resource_group_id_var}}}" {
+  description = "Region of the IBM Cloud account."
+  type = string
+}
+{{/cluster_config_resource_group_id_var}}
+
+// Kubernetes provider
+provider "kubernetes" {
+  {{#provider_ks_config_path_var}}
+  config_path = data.ibm_container_cluster_config.config.config_file_path
+  {{/provider_ks_config_path_var}}
+  {{#provider_ks_host_var}}
+  host = data.ibm_container_cluster_config.config.host
+  {{/provider_ks_host_var}}
+  {{#provider_ks_token_var}}
+  token = data.ibm_container_cluster_config.config.token
+  {{/provider_ks_token_var}}
+  {{#provider_ks_client_certificate_var}}
+  client_certificate     = data.ibm_container_cluster_config.config.admin_certificate
+  {{/provider_ks_client_certificate_var}}
+  {{#provider_ks_client_key_var}}
+  client_key             = data.ibm_container_cluster_config.config.admin_key
+  {{/provider_ks_client_key_var}}
+  {{#provider_ks_ca_certificate_var}}
+  cluster_ca_certificate = data.ibm_container_cluster_config.config.ca_certificate
+  {{/provider_ks_ca_certificate_var}}
+}
+
+// Variables for Kubernetes provider
+
+{{#provider_ks_config_path_var}}
+variable "{{{provider_ks_config_path_var}}}" {
+  description = "A path to a kube config file."
+  type = string
+}
+{{/provider_ks_config_path_var}}
+
+{{#provider_ks_host_var}}
+variable "{{{provider_ks_host_var}}}" {
+  description = "The hostname (in form of URI) of the Kubernetes API."
+  type = string
+}
+{{/provider_ks_host_var}}
+
+{{#provider_ks_token_var}}
+variable "{{{provider_ks_token_var}}}" {
+  description = "Token of your service account."
+  type = string
+}
+{{/provider_ks_token_var}}
+
+{{#provider_ks_client_certificate_var}}
+variable "{{{provider_ks_client_certificate_var}}}" {
+  description = "PEM-encoded client certificate for TLS authentication."
+  type = string
+}
+{{/provider_ks_client_certificate_var}}
+
+{{#provider_ks_client_key_var}}
+variable "{{{provider_ks_client_key_var}}}" {
+  description = "PEM-encoded client certificate key for TLS authentication."
+  type = string
+}
+{{/provider_ks_client_key_var}}
+
+{{#provider_ks_ca_certificate_var}}
+variable "{{{provider_ks_ca_certificate_var}}}" {
+  description = "PEM-encoded root certificates bundle for TLS authentication."
+  type = string
+}
+{{/provider_ks_ca_certificate_var}}

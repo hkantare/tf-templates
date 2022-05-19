@@ -1,0 +1,11 @@
+terraform {
+  required_providers {
+    ibm = {
+    source = "IBM-Cloud/ibm"
+    {{#provider_version}}
+    version = "{{{provider_version}}}"
+    {{/provider_version}}
+
+    }
+  }
+}
